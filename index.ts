@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 
 app.get('/', function (req, res) {
-    res.send('Hello World');
+    res.send('<ul><li>Hello World</li><li><a href="/docx">Example Docx</a></li></ul>');
 });
 app.get('/docx', function (req, res) {
     // Create document
