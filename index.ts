@@ -31,10 +31,24 @@ app.get('/docx', function (req:any, res:any) {
     });
 
     // Used to export the file into a .docx file
-    Packer.toBuffer(doc).then((buffer) => {
-        fs.writeFileSync("My Document.docx", buffer);
+    // Packer.toBuffer(doc).then((buffer) => {
+    //     fs.writeFileSync("My Document.docx", buffer);
+    // });
+    // Export By Base64
+    Packer.toBase64String(doc).then((string) => {
+        //console.log(string);
+        // res.send('<p>'+string+'</p>');
+        res.writeHead(200, {
+            'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition': 'attachment; filename="Test.docx"'
+        });
+
+        const download = Buffer.from(string, 'base64');
+
+        res.end(download);
     });
-    res.download("My Document.docx");
+
+    // res.download("My Document.docx");
 });
 console.log("App Started on http://127.0.0.1:3000");
 app.listen(3000);
