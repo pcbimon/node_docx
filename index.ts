@@ -1,6 +1,5 @@
-import * as fs from "fs";
 import { Document, Packer, Paragraph, TextRun } from "docx";
-
+const fs = require('fs');
 const express = require('express');
 const app = express();
 
@@ -35,6 +34,7 @@ app.get('/docx', function (req, res) {
     Packer.toBuffer(doc).then((buffer) => {
         fs.writeFileSync("My Document.docx", buffer);
     });
+    res.download("My Document.docx");
 });
 console.log("App Started on http://127.0.0.1:3000");
 app.listen(3000);

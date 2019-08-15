@@ -2,15 +2,16 @@
   "name": "node_docx",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "node index.js",
+    "start": "tsc index.ts node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "docx": "^5.0.0-rc5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "typescript": "^3.5.3"
   }
 }
