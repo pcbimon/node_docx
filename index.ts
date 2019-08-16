@@ -29,6 +29,24 @@ app.get('/docx', function (req:any, res:any) {
             }),
         ],
     });
+    doc.addSection({
+        properties: {},
+        children: [
+            new Paragraph({
+                children: [
+                    new TextRun("Hello World"),
+                    new TextRun({
+                        text: "Foo Bar",
+                        bold: true,
+                    }),
+                    new TextRun({
+                        text: "Github is the best",
+                        bold: true,
+                    }).tab(),
+                ],
+            }),
+        ],
+    });
 
     // Used to export the file into a .docx file
     // Packer.toBuffer(doc).then((buffer) => {
@@ -38,9 +56,11 @@ app.get('/docx', function (req:any, res:any) {
     Packer.toBase64String(doc).then((string) => {
         //console.log(string);
         // res.send('<p>'+string+'</p>');
+        var moment = require('moment');
+        let filename = moment().format("HHmmssSSS");
         res.writeHead(200, {
             'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'Content-Disposition': 'attachment; filename="Test.docx"'
+            'Content-Disposition': 'attachment; filename="'+filename+'.docx"'
         });
 
         const download = Buffer.from(string, 'base64');
